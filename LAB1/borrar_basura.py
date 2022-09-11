@@ -38,10 +38,12 @@ def isWord(word):
             #print(letter)
             #print(word)
             break
-        if not((letter >= "a" and letter <= "z") or (letter == 'æ' or letter == 'þ' or letter == 'ð')):
+        x = (letter >= "a" and letter <= "z") or letter == 'æ' or letter == 'þ' or letter == 'ð'
+        print('x es ', x)
+        if not(x):
             badChars == True
-            #print(letter)
-            #print(word)
+            print(letter)
+            print(word)
             break
     if dot or number or badChars: 
         return False
@@ -54,15 +56,19 @@ lineas = news.readlines()
 
 #wold = getWold(lineas[0])
 #print(wold)
-f = open('info.txt', 'w', encoding='utf-8')
-for l in lineas:
-    freq = l[0]
-    w = getWold(l)
-    if(isWord(w)):
-        f.write(freq)
-        f.write(', ')
-        f.write(w)
-        f.write('\n')
-f.close
+#f = open('info.txt', 'w', encoding='utf-8')
+#for l in lineas:
+#    freq = getFrequency(l[0])
+#    w = getWold(l)
+#    if(isWord(w)):
+#        f.write(freq)
+#        f.write(', ')
+#        f.write(w)
+#        f.write('\n')
+print(isWord('__hola'), '\n')
+print('_' >= "a" and '_' <= "z")
+print('_' == 'æ' or '_' == 'þ')
+print('_' == 'ð')
+#f.close
 #if(isWord(wold)) f.write(frequency, ', ', wold)
 
