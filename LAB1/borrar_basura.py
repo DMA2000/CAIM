@@ -18,7 +18,7 @@ def getWold (line):
             break;
         i = i +1;
     i += 2;
-    while i < len(line):
+    while i < len(line) -1:
         word = word + line[i];
         i = i + 1;
     return word
@@ -37,7 +37,7 @@ def isWord(word):
         if not((letter >= "a" and letter <= "z") or letter == 'æ' or letter == 'þ' or letter == 'ð'):
             badChars = True
             break
-    if dot or number or badChars: 
+    if dot or number or badChars:
         return False
     else:
         return True
@@ -46,15 +46,17 @@ news = open ("news_alpha.txt")
 lineas = news.readlines()
 f = open('info.txt', 'w', encoding='utf-8')
 total = len(lineas) - 2
+
+
 for l in range (0, total):
     freq = getFrequency(lineas[l])
     w = getWold(lineas[l])
-    if(isWord(w)):
-        print(w)
-        f.write(freq)
+
+    if isWord(w):
+
+        f.write(str(freq))
         f.write(', ')
         f.write(w)
         f.write('\n')
-        
-f.close
 
+f.close
