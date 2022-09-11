@@ -23,6 +23,21 @@ def getWold (line):
         i = i + 1;
     return word
 
+def isWord(word):
+    dot = False
+    number = False
+    for letter in word:
+        print(letter)
+        if letter == '.':
+            dot = True
+            break
+        if letter >= '0' and letter <= '9':
+            number = True
+            break
+    if dot or number: 
+        return False
+    else:
+        return True
 
 news = open ("news_alpha.txt")
 lineas = news.readlines()
@@ -31,3 +46,5 @@ print(frequency)
 
 wold = getWold(lineas[0])
 print(wold)
+print('Hola')
+print(isWord('Hola'))
