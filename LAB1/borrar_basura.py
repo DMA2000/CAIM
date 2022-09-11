@@ -10,9 +10,24 @@ def getFrequency (line):
             break;
     return int(frequency)
 
+def getWold (line):
+    word = ""
+    i = 0;
+    while i < len(line):
+        if (line[i] == ','):
+            break;
+        i = i +1;
+    i += 2;
+    while i < len(line):
+        word = word + line[i];
+        i = i + 1;
+    return word
 
 
 news = open ("news_alpha.txt")
 lineas = news.readlines()
-for i in range (0, len(lineas)-1):
-    print(1)
+frequency = getFrequency(lineas[0])
+print(frequency)
+
+wold = getWold(lineas[0])
+print(wold)
