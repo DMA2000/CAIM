@@ -30,20 +30,12 @@ def isWord(word):
     for letter in word:
         if letter == '.':
             dot = True
-            #print(letter)
-            #print(word)
             break
         if letter >= '0' and letter <= '9':
             number = True
-            #print(letter)
-            #print(word)
             break
-        x = (letter >= "a" and letter <= "z") or letter == 'æ' or letter == 'þ' or letter == 'ð'
-        print('x es ', x)
-        if not(x):
-            badChars == True
-            print(letter)
-            print(word)
+        if not((letter >= "a" and letter <= "z") or letter == 'æ' or letter == 'þ' or letter == 'ð'):
+            badChars = True
             break
     if dot or number or badChars: 
         return False
@@ -52,23 +44,17 @@ def isWord(word):
 
 news = open ("news_alpha.txt")
 lineas = news.readlines()
-#frequency = getFrequency(lineas[0])
-
-#wold = getWold(lineas[0])
-#print(wold)
-#f = open('info.txt', 'w', encoding='utf-8')
-#for l in lineas:
-#    freq = getFrequency(l[0])
-#    w = getWold(l)
-#    if(isWord(w)):
-#        f.write(freq)
-#        f.write(', ')
-#        f.write(w)
-#        f.write('\n')
-print(isWord('__hola'), '\n')
-print('_' >= "a" and '_' <= "z")
-print('_' == 'æ' or '_' == 'þ')
-print('_' == 'ð')
-#f.close
-#if(isWord(wold)) f.write(frequency, ', ', wold)
+f = open('info.txt', 'w', encoding='utf-8')
+total = len(lineas) - 2
+for l in range (0, total):
+    freq = getFrequency(lineas[l])
+    w = getWold(lineas[l])
+    if(isWord(w)):
+        print(w)
+        f.write(freq)
+        f.write(', ')
+        f.write(w)
+        f.write('\n')
+        
+f.close
 
