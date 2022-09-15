@@ -42,9 +42,9 @@ def isWord(word):
     else:
         return True
 
-news = open ("news_ascending.txt")
+news = open ("novels.txt")
 lineas = news.readlines()
-f = open('info.txt', 'w', encoding='utf-8')
+f = open('info_novels.txt', 'w', encoding='utf-8')
 total = len(lineas) - 2
 
 #rango = 1

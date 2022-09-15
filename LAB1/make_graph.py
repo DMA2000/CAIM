@@ -7,14 +7,18 @@ def getFrequency (line):
         frequency = frequency + line[i]
     return int(frequency)
 
-news = open ("info.txt")
+news = open ("info_novels.txt")
 lineas = news.readlines()
 f = open('test.txt', 'w', encoding='utf-8')
 total = len(lineas)
 
 array = []
+count = 0
 for l in range (0, total):
-    array.append( getFrequency(lineas[l]) )
+    #if (getFrequency(lineas[l]) > 1000):
+    if count < 500:
+        array.append( getFrequency(lineas[l]) )
+        count += 1
 
 
 #test array
