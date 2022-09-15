@@ -47,16 +47,18 @@ lineas = news.readlines()
 f = open('info.txt', 'w', encoding='utf-8')
 total = len(lineas) - 2
 
-
+rango = 1
 for l in range (0, total):
     freq = getFrequency(lineas[l])
     w = getWold(lineas[l])
 
     if isWord(w):
-
+        f.write(str(rango))
+        f.write(', ')
         f.write(str(freq))
         f.write(', ')
         f.write(w)
         f.write('\n')
+        rango += 1
 
 f.close
