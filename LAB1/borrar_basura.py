@@ -49,13 +49,15 @@ total = len(lineas) - 2
 
 #rango = 1
 array = []
-count = 0;
+
 for l in range (0, total):
     freq = getFrequency(lineas[l])
     w = getWold(lineas[l])
     if isWord(w):
+        #f.write(w)
+        #f.write('\n')
         array.append(freq)
-        count += 1
+        
     #if isWord(w):
         #f.write(str(rango))
         #f.write(', ')
@@ -66,7 +68,7 @@ for l in range (0, total):
         #rango += 1
         
 res = array[::-1]
-for l in range(0, count):
+for l in range(0, len(array)):
     f.write(str(res[l]))
     f.write('\n')
 
