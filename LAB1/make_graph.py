@@ -15,7 +15,7 @@ def getFrequency (line):
 def zipFunction(rank, a, b, c):
 	return c/((rank+b)**a)
 
-news = open ("info_novels.txt")
+news = open ("info_news.txt")
 lineas = news.readlines()
 f = open('test.txt', 'w', encoding='utf-8')
 total = len(lineas)
@@ -35,7 +35,7 @@ for l in range (0, total):
 #    f.write('\n')
 
 xList = [(x+1) for x in range(len(array))]
-popt, pcov = curve_fit(zipFunction, xList, array, bounds=([0.9, -100000.0, -100000.0],[1.8, 100000.0, 1000000.0]))
+popt, pcov = curve_fit(zipFunction, xList, array, bounds=([0.7, -100000.0, -100000.0],[1.8, 100000.0, 1000000.0]))
 
 print(popt)
 
