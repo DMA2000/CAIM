@@ -1,5 +1,9 @@
 # esto
 # Prueba de push
+import enchant
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
 
 def getFrequency (line):
     frequency = line[0];
@@ -49,13 +53,15 @@ total = len(lineas) - 2
 
 #rango = 1
 array = []
-
+words = []
+d = enchant.Dict("en_US")
 for l in range (0, total):
     freq = getFrequency(lineas[l])
     w = getWold(lineas[l])
-    if isWord(w):
+    if d.check(w) and isWord(w):
         #f.write(w)
         #f.write('\n')
+        words.append(w)
         array.append(freq)
         
     #if isWord(w):
@@ -66,10 +72,27 @@ for l in range (0, total):
         #f.write(w)
         #f.write('\n')
         #rango += 1
-        
-res = array[::-1]
-for l in range(0, len(array)):
-    f.write(str(res[l]))
-    f.write('\n')
 
+stop_words = set(stopwords.words('english'))
+
+res = array[::-1]
+res_word = words[::-1]
+
+menor10 = 0
+stopWordNum = 0
+for l in range(0, len(array)):
+    if res[l] > 1:
+        if res_word[l] not in stop_words:
+            f.write(str(res[l]))
+            f.write(' ')
+            f.write(res_word[l])
+            f.write('\n')
+        else:
+            stopWordNum += 1
+    else:
+        menor10 += 1
+print('frecuencia menor 10 ' + str(menor10))
+
+print('stop word ' + str(stopWordNum))
+print(len(array)- menor10 - stopWordNum);
 f.close
