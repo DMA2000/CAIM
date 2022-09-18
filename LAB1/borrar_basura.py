@@ -46,9 +46,9 @@ def isWord(word):
     else:
         return True
 
-news = open ("news.txt")
+news = open ("novels.txt")
 lineas = news.readlines()
-f = open('info_news.txt', 'w', encoding='utf-8')
+f = open('info_novels.txt', 'w', encoding='utf-8')
 total = len(lineas) - 2
 
 #rango = 1
@@ -74,7 +74,7 @@ for l in range (0, total):
         #rango += 1
 
 stop_words = set(stopwords.words('english'))
-
+print(stop_words)
 res = array[::-1]
 res_word = words[::-1]
 
@@ -82,7 +82,7 @@ menor10 = 0
 stopWordNum = 0
 for l in range(0, len(array)):
     if res[l] > 1:
-        if res_word[l] not in stop_words:
+        if True:
             f.write(str(res[l]))
             f.write(' ')
             f.write(res_word[l])

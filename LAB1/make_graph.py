@@ -15,7 +15,9 @@ def getFrequency (line):
 def zipFunction(rank, a, b, c):
 	return c/((rank+b)**a)
 
-news = open ("info_news.txt")
+def heapsFunction(n, k, b):
+    return k*n**b
+news = open ("info_novels.txt")
 lineas = news.readlines()
 f = open('test.txt', 'w', encoding='utf-8')
 total = len(lineas)
