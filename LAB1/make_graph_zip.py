@@ -17,7 +17,7 @@ def zipFunction(rank, a, b, c):
 
 def heapsFunction(n, k, b):
     return k*n**b
-news = open ("info_novels.txt")
+news = open ("info_arxiv_abs.txt")
 lineas = news.readlines()
 f = open('test.txt', 'w', encoding='utf-8')
 total = len(lineas)
@@ -31,10 +31,7 @@ for l in range (0, total):
         count += 1
 
 
-#test array
-#for l in range(0, total):
-#    f.write(str(array[l]))
-#    f.write('\n')
+
 
 xList = [(x+1) for x in range(len(array))]
 popt, pcov = curve_fit(zipFunction, xList, array, bounds=([0.7, -100000.0, -100000.0],[1.8, 100000.0, 1000000.0]))

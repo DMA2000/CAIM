@@ -46,9 +46,9 @@ def isWord(word):
     else:
         return True
 
-news = open ("novels15.txt")
+news = open ("arviv_abs.txt")
 lineas = news.readlines()
-f = open('info_novels15.txt', 'w', encoding='utf-8')
+f = open('info_arviv_abs.txt', 'w', encoding='utf-8')
 total = len(lineas) - 2
 
 #rango = 1
@@ -64,14 +64,7 @@ for l in range (0, total):
         words.append(w)
         array.append(freq)
         
-    #if isWord(w):
-        #f.write(str(rango))
-        #f.write(', ')
-        #f.write(str(freq))
-        #f.write(', ')
-        #f.write(w)
-        #f.write('\n')
-        #rango += 1
+
 
 stop_words = set(stopwords.words('english'))
 print(stop_words)

@@ -17,6 +17,7 @@ def heapLaw (n, k , b):
 xvalues = []    # num words
 yvalues = []     # num diff words
 
+
 for i in range(1, 15):
     name = 'info_novels' + str(i) + '.txt'
     text = open(name)
@@ -41,7 +42,7 @@ plt.plot(xvalues, heapLaw(xvalues, *popt), 'g--', label='fit-with-bounds')
 
 plt.plot(xvalues, yvalues)
 #plt.yscale('log')
-plt.ylabel('frecuency')
-plt.xlabel('rank')
+plt.ylabel('different words')
+plt.xlabel('words')
 #plt.xscale('log')
 plt.show()
