@@ -1,5 +1,3 @@
-# esto
-# Prueba de push
 import enchant
 import nltk
 nltk.download('stopwords')
