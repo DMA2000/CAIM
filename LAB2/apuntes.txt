@@ -1,0 +1,14 @@
+Stremming -> normalizar textos 
+1. convertir texto en tokens.
+TOKENIZER -> standard tokenizer, 
+
+cargar los indices de newletter para una meor analisis. 
+Lo tekenizamos, y hacemos stemming. 
+
+IndexFilesPreprocess-> hace tokenizacion y filtrado 
+--token opciones
+con countpy miramos como varia el numero de parabla a medida que variamos "opciones"
+
+coger el tokenizer mas agressivo, y activar filtros: lowercase, asciifolfing.
+
+contestar preguntas elegiendo los filtros sabiamente. 
