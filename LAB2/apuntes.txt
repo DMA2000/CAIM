@@ -1,5 +1,11 @@
 Stremming -> normalizar textos 
 1. convertir texto en tokens.
+
+python3 IndexFilesPreprocess.py --index novels_whitespace --path /home/he/Desktop/caim/session1ESZipfHeaps/novels --token whitespace
+python3 IndexFilesPreprocess.py --index novels_whitespace --path ./novels --token whitespace
+python3 IndexFilesPreprocess.py --index news --path /novels --token whitespace
+
+
 TOKENIZER -> standard tokenizer, 
 
 cargar los indices de newletter para una meor analisis. 
