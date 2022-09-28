@@ -89,10 +89,9 @@ def toTFIDF(client, index, file_id):
 
     tfidfw = []
     for (t, w),(_, df) in zip(file_tv, file_df):
-        #
-        # Something happens here
-        #
-        pass
+        tfd = w/max_freq
+        idf = np.log2(dcount/df)
+        tfidfw.append((t,tfd * idf))
 
     return normalize(tfidfw)
 
@@ -105,7 +104,8 @@ def print_term_weigth_vector(twv):
     #
     # Program something here
     #
-    pass
+    for i in twv:
+        print(i)
 
 
 def normalize(tw):
@@ -118,7 +118,18 @@ def normalize(tw):
     #
     # Program something here
     #
-    return None
+
+    #obtener el modulo 
+    sum = 0
+    for (_, w) in tw:
+        sum += w
+    modulo = np.sqrt(sum)
+    
+    normal = []
+    for (t, w) in tw:
+        normal.append(t, w/modulo)
+
+    return normal
 
 
 def cosine_similarity(tw1, tw2):
@@ -128,10 +139,35 @@ def cosine_similarity(tw1, tw2):
     :param tw2:
     :return:
     """
-    #
-    # Program something here
-    #
-    return 0
+    indice_tw1 = 0
+    indice_tw2 = 0
+    
+    sum = 0
+    while indice_tw1 < len(tw1) and indice_tw2 < len(tw2):
+
+        if tw1[indice_tw1][0] == tw2[indice_tw2][0]:    # el mismo id
+            sum += tw1[indice_tw1][0]*tw2[indice_tw2][0]
+            indice_tw1 += 1
+            indice_tw2 += 1
+
+        elif tw1[indice_tw1][0] < tw2[indice_tw2][0]:   # avanzar tw1
+            indice_tw1 += 1
+            
+        else:                                           # avanzar tw2
+            indice_tw2 += 1
+
+    sum_tw1 = 0
+    for (_, w) in tw1:
+        sum_tw1 += w
+    modulo_tw1 = np.sqrt(sum_tw1)
+
+    sum_tw2 = 0
+    for (_, w) in tw2:
+        sum_tw2 += w
+    modulo_tw2 = np.sqrt(sum_tw2)
+
+
+    return sum/(modulo_tw1*modulo_tw2)
 
 def doc_count(client, index):
     """
