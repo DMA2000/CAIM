@@ -1,6 +1,3 @@
-# esto
-# Prueba de push
-
 def getFrequency (line):
     frequency = line[0];
     for i in range(1, len(line)):
