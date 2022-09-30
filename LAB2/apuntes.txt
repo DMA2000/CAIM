@@ -5,12 +5,24 @@ python3 IndexFilesPreprocess.py --index novels_whitespace --path /home/he/Deskto
 python3 IndexFilesPreprocess.py --index novels_whitespace --path ./novels --token whitespace
 python3 IndexFilesPreprocess.py --index news --path /novels --token whitespace
 
-python3 TFIDFViewer.py --index novels --file pg1410.txt pg1410.txt
-DickensAChristmasCarol
-DickensGreatExpectations
+python3 IndexFilesPreprocess.py --index novels_letter --path ./novels --token letter
 
 
+python3 IndexFilesPreprocess.py --index 20news_letter --path ./20_newsgroups --token letter --filter lowercase asciifolding stop snowball
+
+
+box plot
+
+python3 TFIDFViewer.py --index 20news_letter --file ./20_newsgroups/alt.atheism/0000000 ./20_newsgroups/alt.atheism/0000000
+
+python3 TFIDFViewer.py --index 20news_letter --file ./20_newsgroups/alt.atheism/0000000 ./20_newsgroups/sci.electronics/0001566
+
+python3 TFIDFViewer.py --index 20news_letter --file ./20_newsgroups/soc.religion.christian/0015000 ./20_newsgroups/talk.politics.mideast/0016011
+
+
+python3 TFIDFViewer.py --index novels_letter --file ./novels/DickensAChristmasCarol.txt ./novels/DickensGreatExpectations.txt
 python3 TFIDFViewer.py --index novels --file ./novels/DickensAChristmasCarol.txt ./novels/DickensGreatExpectations.txt
+
 
 TOKENIZER -> standard tokenizer, 
 
