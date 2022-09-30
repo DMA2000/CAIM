@@ -15,7 +15,8 @@ TFIDFViewer
 
 :Date:  05/07/2017
 """
-
+from email.mime import base
+from os import walk
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch.client import CatClient
@@ -123,7 +124,6 @@ def normalize(tw):
     sum = 0
     for (_, w) in tw:
         sum += w
-        print(w)
     modulo = np.sqrt(sum)
 
     normal = []
@@ -193,32 +193,48 @@ if __name__ == '__main__':
 
 
     index = args.index
+    
 
-    file1 = args.files[0]
-    file2 = args.files[1]
+    baseball = './20_newsgroups/rec.sport.baseball'
+    baseballNames = next(walk(baseball), (None, None, []))[2]  # [] if no file
+    baseballNames.sort()
 
-    client = Elasticsearch(timeout=1000)
+    hardware = './20_newsgroups/comp.sys.mac.hardware'
+    hardwareNames = next(walk(hardware), (None, None, []))[2]  # [] if no file
+    hardwareNames.sort()
 
-    try:
+    for baseNames in baseballNames:
+        file1 = baseball+'/'+baseNames
+        sum = 0;
+        for hardNames in hardwareNames:
+            file2 = hardware +'/'+hardNames
 
-        # Get the files ids
-        file1_id = search_file_by_path(client, index, file1)
-        file2_id = search_file_by_path(client, index, file2)
+            client = Elasticsearch(timeout=1000)
 
-        # Compute the TF-IDF vectors
-        file1_tw = toTFIDF(client, index, file1_id)
-        file2_tw = toTFIDF(client, index, file2_id)
+            try:
 
-        if args.print:
-            print(f'TFIDF FILE {file1}')
-            print_term_weigth_vector(file1_tw)
-            print ('---------------------')
-            print(f'TFIDF FILE {file2}')
-            print_term_weigth_vector(file2_tw)
-            print ('---------------------')
+                # Get the files ids
+                file1_id = search_file_by_path(client, index, file1)
+                file2_id = search_file_by_path(client, index, file2)
 
-        print(f"Similarity = {cosine_similarity(file1_tw, file2_tw):3.5f}")
+                # Compute the TF-IDF vectors
+                file1_tw = toTFIDF(client, index, file1_id)
+                file2_tw = toTFIDF(client, index, file2_id)
 
-    except NotFoundError:
-        print(f'Index {index} does not exists')
+                if args.print:
+                    print(f'TFIDF FILE {file1}')
+                    print_term_weigth_vector(file1_tw)
+                    print ('---------------------')
+                    print(f'TFIDF FILE {file2}')
+                    print_term_weigth_vector(file2_tw)
+                    print ('---------------------')
+                cosinus = cosine_similarity(file1_tw, file2_tw)
+                sum += cosinus
+                #print(f"Similarity = {cosine_similarity(file1_tw, file2_tw):3.5f}")
+
+
+            except NotFoundError:
+                print(f'Index {index} does not exists')
+        print(sum/len(hardwareNames))
+    
 
