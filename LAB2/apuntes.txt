@@ -17,4 +17,11 @@ con countpy miramos como varia el numero de parabla a medida que variamos "opcio
 
 coger el tokenizer mas agressivo, y activar filtros: lowercase, asciifolfing.
 
-contestar preguntas elegiendo los filtros sabiamente. 
+contestar preguntas elegiendo los filtros sabiamente.
+
+Tipos de filtros:   
+    - snowball: hace un stem de un idioma con Snowball-generated stemmer
+    - porter stem: hace un stem del ingles muy agressivo (elimina sufijos)
+    - kstem: hace un stem menos agresivo que porter stem
+
+Para los filtros intentar buscar la mejor combinación de filtros posibles.
