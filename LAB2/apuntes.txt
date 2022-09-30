@@ -5,6 +5,7 @@ python3 IndexFilesPreprocess.py --index novels_whitespace --path /home/he/Deskto
 python3 IndexFilesPreprocess.py --index novels_whitespace --path ./novels --token whitespace
 python3 IndexFilesPreprocess.py --index news --path /novels --token whitespace
 
+python3 TFIDFViewer.py --index novels --file pg1410.txt pg1410.txt
 
 TOKENIZER -> standard tokenizer, 
 
