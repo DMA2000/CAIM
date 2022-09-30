@@ -90,7 +90,7 @@ def toTFIDF(client, index, file_id):
     tfidfw = []
     for (t, w),(_, df) in zip(file_tv, file_df):
         tfd = w/max_freq
-        idf = np.log2(dcount/df)
+        idf = np.log2((dcount/df))
         tfidfw.append((t,tfd * idf))
 
     return normalize(tfidfw)
@@ -123,11 +123,13 @@ def normalize(tw):
     sum = 0
     for (_, w) in tw:
         sum += w
+        print(w)
     modulo = np.sqrt(sum)
-    
+
     normal = []
     for (t, w) in tw:
-        normal.append(t, w/modulo)
+        aux = w/modulo
+        normal.append((t, aux))
 
     return normal
 
@@ -146,11 +148,12 @@ def cosine_similarity(tw1, tw2):
     while indice_tw1 < len(tw1) and indice_tw2 < len(tw2):
 
         if tw1[indice_tw1][0] == tw2[indice_tw2][0]:    # el mismo id
-            sum += tw1[indice_tw1][0]*tw2[indice_tw2][0]
+            
+            sum += tw1[indice_tw1][1]*tw2[indice_tw2][1]
             indice_tw1 += 1
             indice_tw2 += 1
 
-        elif tw1[indice_tw1][0] < tw2[indice_tw2][0]:   # avanzar tw1
+        elif tw1[indice_tw1][1] < tw2[indice_tw2][1]:   # avanzar tw1
             indice_tw1 += 1
             
         else:                                           # avanzar tw2
@@ -158,12 +161,12 @@ def cosine_similarity(tw1, tw2):
 
     sum_tw1 = 0
     for (_, w) in tw1:
-        sum_tw1 += w
+        sum_tw1 += np.square(w)
     modulo_tw1 = np.sqrt(sum_tw1)
 
     sum_tw2 = 0
     for (_, w) in tw2:
-        sum_tw2 += w
+        sum_tw2 += np.square(w)
     modulo_tw2 = np.sqrt(sum_tw2)
 
 
