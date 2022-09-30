@@ -6,6 +6,10 @@ python3 IndexFilesPreprocess.py --index novels_whitespace --path ./novels --toke
 python3 IndexFilesPreprocess.py --index news --path /novels --token whitespace
 
 python3 TFIDFViewer.py --index novels --file pg1410.txt pg1410.txt
+DickensAChristmasCarol
+DickensGreatExpectations
+
+python3 TFIDFViewer.py --index novels --file ./novels/DickensAChristmasCarol.txt ./novels/DickensGreatExpectations.txt
 
 TOKENIZER -> standard tokenizer, 
 
