@@ -235,6 +235,6 @@ if __name__ == '__main__':
 
             except NotFoundError:
                 print(f'Index {index} does not exists')
-        print(sum/len(hardwareNames))
+        print(f"{sum/len(hardwareNames):3.5f}")
     
 
