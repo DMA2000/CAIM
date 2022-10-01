@@ -90,9 +90,11 @@ def toTFIDF(client, index, file_id):
 
     tfidfw = []
     for (t, w),(_, df) in zip(file_tv, file_df):
-        tfd = w/max_freq
-        idf = np.log2((dcount/df))
-        tfidfw.append((t,tfd * idf))
+                                             # aplicar formulas:
+        tfdi = w/max_freq                    # tfdi es el peso entre la max_freq
+        idfi = np.log2((dcount/df))          # idfi es logaritmo base 2 de numero de documentos entre 
+                                             # numero de de documentos que contiene el termino
+        tfidfw.append((t,tfdi * idfi))       # anadimos el resultado a la lista
 
     return normalize(tfidfw)
 
@@ -105,7 +107,7 @@ def print_term_weigth_vector(twv):
     #
     # Program something here
     #
-    for i in twv:
+    for i in twv:       
         print(i)
 
 
@@ -124,12 +126,12 @@ def normalize(tw):
     sum = 0
     for (_, w) in tw:
         sum += w
-    modulo = np.sqrt(sum)
+    modulo = np.sqrt(sum)           # calculo del modulo del vector
 
     normal = []
     for (t, w) in tw:
         aux = w/modulo
-        normal.append((t, aux))
+        normal.append((t, aux))     # calculo de la normal
 
     return normal
 
@@ -145,9 +147,9 @@ def cosine_similarity(tw1, tw2):
     indice_tw2 = 0
     
     sum = 0
-    while indice_tw1 < len(tw1) and indice_tw2 < len(tw2):
+    while indice_tw1 < len(tw1) and indice_tw2 < len(tw2): 
 
-        if tw1[indice_tw1][0] == tw2[indice_tw2][0]:    # el mismo id
+        if tw1[indice_tw1][0] == tw2[indice_tw2][0]:    # el mismo id, computamos 
             
             sum += tw1[indice_tw1][1]*tw2[indice_tw2][1]
             indice_tw1 += 1
@@ -160,17 +162,17 @@ def cosine_similarity(tw1, tw2):
             indice_tw2 += 1
 
     sum_tw1 = 0
-    for (_, w) in tw1:
+    for (_, w) in tw1:                  # calculamos el modulo del primer vector
         sum_tw1 += np.square(w)
     modulo_tw1 = np.sqrt(sum_tw1)
 
-    sum_tw2 = 0
+    sum_tw2 = 0                         # calculamos el modulo del segundo vector
     for (_, w) in tw2:
         sum_tw2 += np.square(w)
     modulo_tw2 = np.sqrt(sum_tw2)
 
 
-    return sum/(modulo_tw1*modulo_tw2)
+    return sum/(modulo_tw1*modulo_tw2)  # aplicamos la formula
 
 def doc_count(client, index):
     """
@@ -195,13 +197,15 @@ if __name__ == '__main__':
     index = args.index
     
 
-    baseball = './20_newsgroups/rec.sport.baseball'
-    baseballNames = next(walk(baseball), (None, None, []))[2]  # [] if no file
-    baseballNames.sort()
+    baseball = './20_newsgroups/rec.sport.baseball'            
+    baseballNames = next(walk(baseball), (None, None, []))[2]  
+    baseballNames.sort()                                       # baseballNames contine todos los nombre de los ficheros 
+                                                               # que estan en el path ./20_newsgroups/rec.sport.baseball                 
 
     hardware = './20_newsgroups/comp.sys.mac.hardware'
-    hardwareNames = next(walk(hardware), (None, None, []))[2]  # [] if no file
-    hardwareNames.sort()
+    hardwareNames = next(walk(hardware), (None, None, []))[2]  
+    hardwareNames.sort()                                       # hardwareNames contine todos los nombre de los ficheros 
+                                                               # que estan en el path ./20_newsgroups/comp.sys.mac.hardware
 
     for baseNames in baseballNames:
         file1 = baseball+'/'+baseNames
@@ -229,12 +233,13 @@ if __name__ == '__main__':
                     print_term_weigth_vector(file2_tw)
                     print ('---------------------')
                 cosinus = cosine_similarity(file1_tw, file2_tw)
-                sum += cosinus
+                sum += cosinus      # acumulamos el valor de cosinus similarity
+
                 #print(f"Similarity = {cosine_similarity(file1_tw, file2_tw):3.5f}")
 
 
             except NotFoundError:
                 print(f'Index {index} does not exists')
-        print(f"{sum/len(hardwareNames):3.5f}")
+        print(f"{sum/len(hardwareNames):3.5f}")             # hacemos la media
     
 
