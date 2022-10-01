@@ -9,7 +9,5 @@ total = len(lineas)
 for value in lineas:
     array.append(float(value))
 
-
-
 plt.boxplot(array)
 plt.show()

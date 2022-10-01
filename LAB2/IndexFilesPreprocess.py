@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
     # check if the filters are valid
     for f in args.filter:
-        if f not in ['lowercase', 'asciifolding', 'stop', 'stemmer', 'porter_stem', 'kstem', 'snowball']:
+        if f not in ['lowercase', 'asciifolding', 'stop', 'stemmer', 'porter_stem', 'kstem', 'snowball', 'phonetic']:
             raise NameError(
                 'Invalid filter must be a subset of: lowercase, asciifolding, stop, porter_stem, kstem, snowball')
 
