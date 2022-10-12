@@ -89,7 +89,9 @@ def toTFIDF(client, index, file_id):
                                              # numero de de documentos que contiene el termino
         tfidfw[t] = (tfdi * idfi)       # anadimos el resultado a la lista
 
-    return normalize(tfidfw)        #?????????????????????????????
+    return (tfidfw)        #?????????????????????????????
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -125,16 +127,16 @@ if __name__ == '__main__':
                 response = s[0:nhits].execute()
 
                 # computar palabra-peso
-                palabra_peso = {}
+                query_dict = {}
+
                 for q in query:
-                    if '^' in q:
-                        aux = q.split('^')
-                        palabra_peso[aux[0]] = float(aux[1])
+                    if('^' in q):
+                        key, value = q.split('^')
+                        query_dict[key] = float(value)
                     else:
-                        aux = q 
-                        palabra_peso[aux[0]] = 1.0
-                    
-                print(palabra_peso);
+                        query_dict[q] = 1.0
+
+                print(query_dict)
 
                 sumDocs = {}
                 print(str(len(response)) + 'sssss')
@@ -145,9 +147,9 @@ if __name__ == '__main__':
 
                     #compute beta*(d_1 + ... + d_2)/k
                 sumDocs = {t: beta*sumDocs.get(t,0)/nhits for t in set(sumDocs)} #beta * vector de documents / K
-                
-                oldQuery = {t: alpha*palabra_peso.get(t,0) for t in set(palabra_peso)} #alpha * query
+                oldQuery = {t: alpha*query_dict.get(t,0) for t in set(query_dict)} #alpha * query
                 newQuery = {t: sumDocs.get(t,0) + oldQuery.get(t,0) for t in set(oldQuery)|set(sumDocs)} #newquery = sumDocs + oldquery
+
                 newQuery = sorted(newQuery.items(), key=operator.itemgetter(1), reverse=True)
                 
                 newQuery = newQuery[:R]
