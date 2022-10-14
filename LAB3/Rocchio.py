@@ -74,7 +74,7 @@ def toTFIDF(client, index, file_id):
         idfi = np.log2((dcount/df))            # idfi es logaritmo base 2 de numero de documentos entre 
                                                # numero de de documentos que contiene el termino
         tfidfw[t] = (tfdi * idfi) # añadimos el resultado a la lista normalizandolo respecto al tamaño del documento
-    return normalize(tfidfw)
+    return (tfidfw)
 
 if __name__ == '__main__':
     #Parsear la entrada
@@ -142,9 +142,6 @@ if __name__ == '__main__':
 
             print(query)
             
-
-
-
             # imprimir resultados
             response = s[0:nhits].execute()
             for r in response:  # only returns a specific number of results

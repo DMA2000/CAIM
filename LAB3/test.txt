@@ -1,5 +1,26 @@
 ['toronto^2', 'nyc']
 {'toronto': 2.0, 'n': 1.0}
+['toronto^2.01318375678447', 'n^1.0', 'mwra^0.1177509929549219', 'water^0.10313552644552722', 'dogma^0.05796853389576643', 'faith^0.056095226486535886', 'dept^0.04890379033283881', 'seattle^0.032988460657440585', 'homicides^0.03182481828998864', 'vancouver^0.02831222989037007']
+ID= XWETs4MB7pQrjL1_YkhF SCORE=12.848195
+PATH= ./20_newsgroups/alt.atheism/0000574
+TEXT: In article <1r1mr8$eov@aurora.engr.LaTech.edu>, ra
+-----------------------------------------------------------------
+ID= _mETs4MB7pQrjL1_Xzng SCORE=6.8630667
+PATH= ./20_newsgroups/sci.med/0013128
+TEXT: Here is a press release from the Natural Resources
+-----------------------------------------------------------------
+ID= D2ETs4MB7pQrjL1_XjA5 SCORE=6.781909
+PATH= ./20_newsgroups/talk.politics.misc/0018667
+TEXT: v140pxgt@ubvmsb.cc.buffalo.edu (Daniel B Case) wri
+-----------------------------------------------------------------
+ID= e2ETs4MB7pQrjL1_XCQS SCORE=5.037794
+PATH= ./20_newsgroups/talk.politics.guns/0015998
+TEXT: Jim De Arras (jmd@cube.handheld.com) wrote:
+: > La
+-----------------------------------------------------------------
+4 Documents
+['toronto^2', 'nyc']
+{'toronto': 2.0, 'n': 1.0}
 ['toronto^2.1034570236586276', 'mwra^1.0555656465403203', 'n^1.0', 'water^0.9245469267119137', 'dept^0.4383925754300617', 'dogma^0.4112719660496878', 'faith^0.3979813276734435', 'seattle^0.29451321857713', 'homicides^0.28443723534346027', 'vancouver^0.2530431540267003']
 ID= XWETs4MB7pQrjL1_YkhF SCORE=12.848195
 PATH= ./20_newsgroups/alt.atheism/0000574
