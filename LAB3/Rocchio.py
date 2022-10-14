@@ -1,4 +1,5 @@
 
+import math
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Search
@@ -8,29 +9,13 @@ import argparse
 import operator
 import numpy as np
 
-def normalize(tw):
-    """
-    Normalizes the weights in t so that they form a unit-length vector
-    It is assumed that not all weights are 0
-    :param tw:
-    :return:
-    """
-    #
-    # Program something here
-    #
+def normalize(d):
+    s = sum(d.values())
+    r = np.sqrt(s)
+    norm = {t: d.get(t, 0)/r for t in set(d)}
+    return norm
 
-    #obtener el modulo 
-    sum = 0
-    for (_, w) in tw.items():
-        sum += w
-    modulo = np.sqrt(sum)           # calculo del modulo del vector
 
-    normal = {}
-    for (t, w) in tw.items():
-        aux = w/modulo
-        normal[t] = ( aux)    # calculo de la normal
-
-    return normal
 
 def document_term_vector(client, index, id):
     """
@@ -89,7 +74,7 @@ def toTFIDF(client, index, file_id):
                                              # numero de de documentos que contiene el termino
         tfidfw[t] = (tfdi * idfi)       # anadimos el resultado a la lista
 
-    return (tfidfw)        #?????????????????????????????
+    return (tfidfw)        #????
 
 
 
@@ -139,11 +124,15 @@ if __name__ == '__main__':
                 print(query_dict)
 
                 sumDocs = {}
-                print(str(len(response)) + 'sssss')
+                print(str(len(response)) + 'response')
                 for r in response:
                     file_tw = toTFIDF(client, index, r.meta.id) #computo tf-idf de cada documento
-                    sumDocs = {t: sumDocs.get(t,0) + file_tw.get(t,0) for t in set(file_tw) | set(sumDocs)} #suma de valores de los docs
                     
+                    union = (set(file_tw) | set(sumDocs))
+                    for  i in union :
+                        sumDocs[i]=  sumDocs.get(i,0) + file_tw.get(i,0)
+                    
+                    sumDocs = normalize(sumDocs)
 
                     #compute beta*(d_1 + ... + d_2)/k
                 sumDocs = {t: beta*sumDocs.get(t,0)/nhits for t in set(sumDocs)} #beta * vector de documents / K
