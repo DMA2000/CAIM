@@ -1,23 +1,21 @@
 ['toronto^2', 'nyc']
-{'toronto': 2.0, 'nyc': 1.0}
-4response
-['toronto^1.9001036985647703', 'nyc^0.9501300237509311', 'seattle^0.0018971816418988535', 'homicides^0.001884013377737167', 'vancouver^0.001676069895544605']
-{'toronto': 1.9001036985647703, 'nyc': 0.9501300237509311, 'seattle': 0.0018971816418988535, 'homicides': 0.001884013377737167, 'vancouver': 0.001676069895544605}
-1response
-['toronto^1.8051848767708543', 'nyc^0.9027506214163594', 'seattle^0.0037983409827530255', 'homicides^0.003778863851974597', 'vancouver^0.0033617807689155033']
-{'toronto': 1.8051848767708543, 'nyc': 0.9027506214163594, 'seattle': 0.0037983409827530255, 'homicides': 0.003778863851974597, 'vancouver': 0.0033617807689155033}
-1response
-['toronto^1.715011996066634', 'nyc^0.8577401891985164', 'seattle^0.005604442356564489', 'homicides^0.005578971802500156', 'vancouver^0.0049632060986178565']
-{'toronto': 1.715011996066634, 'nyc': 0.8577401891985164, 'seattle': 0.005604442356564489, 'homicides': 0.005578971802500156, 'vancouver': 0.0049632060986178565}
-1response
-['toronto^1.6293477593976247', 'nyc^0.8149802785915654', 'seattle^0.00732023866168538', 'homicides^0.007289074355499437', 'vancouver^0.0064845601618350925']
-{'toronto': 1.6293477593976247, 'nyc': 0.8149802785915654, 'seattle': 0.00732023866168538, 'homicides': 0.007289074355499437, 'vancouver': 0.0064845601618350925}
-1response
-['toronto^1.5479667345620658', 'nyc^0.774358363514962', 'seattle^0.008950245151550226', 'homicides^0.008913671780848753', 'vancouver^0.007929846521891467']
-1
-ID= e2ETs4MB7pQrjL1_XCQS SCORE=23.290922
+{'toronto': 2.0, 'n': 1.0}
+['toronto^2.1034570236586276', 'mwra^1.0555656465403203', 'n^1.0', 'water^0.9245469267119137', 'dept^0.4383925754300617', 'dogma^0.4112719660496878', 'faith^0.3979813276734435', 'seattle^0.29451321857713', 'homicides^0.28443723534346027', 'vancouver^0.2530431540267003']
+ID= XWETs4MB7pQrjL1_YkhF SCORE=12.848195
+PATH= ./20_newsgroups/alt.atheism/0000574
+TEXT: In article <1r1mr8$eov@aurora.engr.LaTech.edu>, ra
+-----------------------------------------------------------------
+ID= _mETs4MB7pQrjL1_Xzng SCORE=6.8630667
+PATH= ./20_newsgroups/sci.med/0013128
+TEXT: Here is a press release from the Natural Resources
+-----------------------------------------------------------------
+ID= D2ETs4MB7pQrjL1_XjA5 SCORE=6.781909
+PATH= ./20_newsgroups/talk.politics.misc/0018667
+TEXT: v140pxgt@ubvmsb.cc.buffalo.edu (Daniel B Case) wri
+-----------------------------------------------------------------
+ID= e2ETs4MB7pQrjL1_XCQS SCORE=5.037794
 PATH= ./20_newsgroups/talk.politics.guns/0015998
 TEXT: Jim De Arras (jmd@cube.handheld.com) wrote:
 : > La
 -----------------------------------------------------------------
-1 Documents
+4 Documents

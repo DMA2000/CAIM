@@ -10,23 +10,13 @@ import operator
 import numpy as np
 
 def normalize(d):
-    s = sum(d.values())
-    r = np.sqrt(s)
-    norm = {t: d.get(t, 0)/r for t in set(d)}
+   
+    s = sum(d.values())     #suma valor vector
+    r = np.sqrt(s)      #raiz cuadrada
+    norm = {t: d.get(t, 0)/r for t in set(d)}       #dividir cada elemento por la raiz cuadada
     return norm
 
-    #obtener el modulo 
-    sum = 0
-    for (_, w) in tw.items():
-        sum += w
-    modulo = np.sqrt(sum)           # calculo del modulo del vector
 
-    normal = {}
-    for (t, w) in tw.items():
-        aux = w/modulo
-        normal[t] = ( aux)    # calculo de la normal
-
-    return normal
 
 def document_term_vector(client, index, id):
     """
@@ -83,8 +73,8 @@ def toTFIDF(client, index, file_id):
         tfdi = w/max_freq                      # tfdi es el peso entre la max_freq
         idfi = np.log2((dcount/df))            # idfi es logaritmo base 2 de numero de documentos entre 
                                                # numero de de documentos que contiene el termino
-        tfidfw[t] = (tfdi * idfi)/len(file_tv) # añadimos el resultado a la lista normalizandolo respecto al tamaño del documento
-    return tfidfw
+        tfidfw[t] = (tfdi * idfi) # añadimos el resultado a la lista normalizandolo respecto al tamaño del documento
+    return normalize(tfidfw)
 
 if __name__ == '__main__':
     #Parsear la entrada
