@@ -87,68 +87,74 @@ if __name__ == '__main__':
 
     index = args.index
     query = args.query
-    print(query)
+    print("Query: ", query)
     nhits = args.nhits
 
 
-    nrounds = 500
+    nrounds = 5
     k = args.nhits
     alpha = 1.0
-    beta = 0.8
-    R = 10
+    beta = 1.0
+    R = 5
 
     try:
         client = Elasticsearch()
         s = Search(using=client, index=index)
 
         if query is not None:
-            #Obtener la query
-            q = Q('query_string',query=query[0])
-            for i in range(1, len(query)):
-                q &= Q('query_string',query=query[i])
+            #Para cada ronda
+            for i in range(0,nrounds):
+                #Obtener la query
+                q = Q('query_string',query=query[0])
+                for i in range(1, len(query)):
+                    q |= Q('query_string',query=query[i])
 
-            s = s.query(q)
-            response = s[0:nhits].execute()
+                s = s.query(q)
+                response = s[0:nhits].execute()
+                #print("la query despues de inicializarse en el for es:\n", q)
+                # computar palabra-peso
+                palabra_peso = {}
+                for q in query:
+                    if '^' in q:
+                        aux = q.split('^')
+                        palabra_peso[aux[0]] = float(aux[1])
+                    else:
+                        aux = q 
+                        palabra_peso[aux[0]] = 1.0
+                    
+                #print("Palabra peso",palabra_peso)
 
-            # computar palabra-peso
-            palabra_peso = {}
-            for q in query:
-                if '^' in q:
-                    aux = q.split('^')
-                    palabra_peso[aux[0]] = float(aux[1])
-                else:
-                    aux = q 
-                    palabra_peso[aux[0]] = 1.0
+                # Calculo Rocchio Rule
+                sumDocs = {}
+                for r in response:
+                    file_tw = toTFIDF(client, index, r.meta.id) #computo tf-idf de cada documento
+                    sumDocs = {t: sumDocs.get(t,0) + file_tw.get(t,0) for t in set(file_tw) | set(sumDocs)} #suma de valores de los docs
+
+                sumDocs = {t: beta*sumDocs.get(t,0)/nhits for t in set(sumDocs)} #beta * vector de documents / K
+                oldQuery = {t: alpha*palabra_peso.get(t,0) for t in set(palabra_peso)} #alpha * query
+                newQuery = {t: sumDocs.get(t,0) + oldQuery.get(t,0) for t in set(oldQuery)|set(sumDocs)} #newquery = sumDocs + oldquery
+
+                #
+                newQuery = sorted(newQuery.items(), key=operator.itemgetter(1), reverse=True)
+                newQuery = newQuery[:R]
+                #print("Antigua query: ", oldQuery)
+                #print("Nueva query: ", newQuery)
+                # Cálculo token-peso de la query
+                query = []
+                for (term, value) in newQuery:
+                    query.append(term + '^' + str(value))
+
+                #print("Query: ",query)
                 
-            print(palabra_peso);
-            # Calculo Rocchio Rule
-            # Calculo del TFIDF de cada documento
-            sumDocs = {}
-            for r in response:
-                file_tw = toTFIDF(client, index, r.meta.id) #computo tf-idf de cada documento
-                sumDocs = {t: sumDocs.get(t,0) + file_tw.get(t,0) for t in set(file_tw) | set(sumDocs)} #suma de valores de los docs
-
-            sumDocs = {t: beta*sumDocs.get(t,0)/nhits for t in set(sumDocs)} #beta * vector de documents / K
-            oldQuery = {t: alpha*palabra_peso.get(t,0) for t in set(palabra_peso)} #alpha * query
-            newQuery = {t: sumDocs.get(t,0) + oldQuery.get(t,0) for t in set(oldQuery)|set(sumDocs)} #newquery = sumDocs + oldquery
-
-            #
-            newQuery = sorted(newQuery.items(), key=operator.itemgetter(1), reverse=True)
-            newQuery = newQuery[:R]
-            # Cálculo token-peso de la query
-            query = []
-            for (term, value) in newQuery:
-                query.append(term + '^' + str(value))
-
-            print(query)
-            
-            # imprimir resultados
+            # imprimir resultados finales
+            print("Antigua query: ", oldQuery)
+            print("Nueva query: ", newQuery)
             response = s[0:nhits].execute()
             for r in response:  # only returns a specific number of results
                 print(f'ID= {r.meta.id} SCORE={r.meta.score}')
-                print(f'PATH= {r.path}')
-                print(f'TEXT: {r.text[:50]}')
-                print('-----------------------------------------------------------------')
+            #    print(f'PATH= {r.path}')
+            #    print(f'TEXT: {r.text[:50]}')
+            #    print('-----------------------------------------------------------------')
         else:
             print('No query parameters passed')
 
