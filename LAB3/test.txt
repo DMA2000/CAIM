@@ -1,42 +1,112 @@
-['toronto^2', 'nyc']
-{'toronto': 2.0, 'n': 1.0}
-['toronto^2.01318375678447', 'n^1.0', 'mwra^0.1177509929549219', 'water^0.10313552644552722', 'dogma^0.05796853389576643', 'faith^0.056095226486535886', 'dept^0.04890379033283881', 'seattle^0.032988460657440585', 'homicides^0.03182481828998864', 'vancouver^0.02831222989037007']
-ID= XWETs4MB7pQrjL1_YkhF SCORE=12.848195
-PATH= ./20_newsgroups/alt.atheism/0000574
-TEXT: In article <1r1mr8$eov@aurora.engr.LaTech.edu>, ra
+['computer', 'hardware^2']
+ID= PmETs4MB7pQrjL1_WyLI SCORE=15.964605
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003989
+TEXT: In-reply-to: johnn@eskimo.com's message of 21 Apr 
 -----------------------------------------------------------------
-ID= _mETs4MB7pQrjL1_Xzng SCORE=6.8630667
-PATH= ./20_newsgroups/sci.med/0013128
-TEXT: Here is a press release from the Natural Resources
+ID= fWETs4MB7pQrjL1_WyPJ SCORE=14.876287
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003565
+TEXT: The subject says it all. I'm wondering if anyone o
 -----------------------------------------------------------------
-ID= D2ETs4MB7pQrjL1_XjA5 SCORE=6.781909
-PATH= ./20_newsgroups/talk.politics.misc/0018667
-TEXT: v140pxgt@ubvmsb.cc.buffalo.edu (Daniel B Case) wri
+ID= KGETs4MB7pQrjL1_YUW5 SCORE=14.670019
+PATH= ./20_newsgroups/misc.forsale/0006587
+TEXT: I have the following Nth Engine graphics cards for
 -----------------------------------------------------------------
-ID= e2ETs4MB7pQrjL1_XCQS SCORE=5.037794
-PATH= ./20_newsgroups/talk.politics.guns/0015998
-TEXT: Jim De Arras (jmd@cube.handheld.com) wrote:
-: > La
+ID= MWETs4MB7pQrjL1_XjXr SCORE=14.492681
+PATH= ./20_newsgroups/comp.sys.mac.hardware/0004388
+TEXT: In article <tecot.735093703@Xenon.Stanford.EDU> te
 -----------------------------------------------------------------
-4 Documents
-['toronto^2', 'nyc']
-{'toronto': 2.0, 'n': 1.0}
-['toronto^2.1034570236586276', 'mwra^1.0555656465403203', 'n^1.0', 'water^0.9245469267119137', 'dept^0.4383925754300617', 'dogma^0.4112719660496878', 'faith^0.3979813276734435', 'seattle^0.29451321857713', 'homicides^0.28443723534346027', 'vancouver^0.2530431540267003']
-ID= XWETs4MB7pQrjL1_YkhF SCORE=12.848195
-PATH= ./20_newsgroups/alt.atheism/0000574
-TEXT: In article <1r1mr8$eov@aurora.engr.LaTech.edu>, ra
+ID= 82ETs4MB7pQrjL1_WRU9 SCORE=14.422686
+PATH= ./20_newsgroups/comp.windows.x/0005613
+TEXT: Is there an "official extension" to X which allows
 -----------------------------------------------------------------
-ID= _mETs4MB7pQrjL1_Xzng SCORE=6.8630667
-PATH= ./20_newsgroups/sci.med/0013128
-TEXT: Here is a press release from the Natural Resources
+1825 Documents
+ID= PmETs4MB7pQrjL1_WyLI SCORE=30.550922
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003989
+TEXT: In-reply-to: johnn@eskimo.com's message of 21 Apr 
 -----------------------------------------------------------------
-ID= D2ETs4MB7pQrjL1_XjA5 SCORE=6.781909
-PATH= ./20_newsgroups/talk.politics.misc/0018667
-TEXT: v140pxgt@ubvmsb.cc.buffalo.edu (Daniel B Case) wri
+ID= 8WETs4MB7pQrjL1_VQVQ SCORE=26.083902
+PATH= ./20_newsgroups/comp.graphics/0001405
+TEXT: In article 66319@yuma.ACNS.ColoState.EDU, xz775327
 -----------------------------------------------------------------
-ID= e2ETs4MB7pQrjL1_XCQS SCORE=5.037794
-PATH= ./20_newsgroups/talk.politics.guns/0015998
-TEXT: Jim De Arras (jmd@cube.handheld.com) wrote:
-: > La
+ID= 4mATs4MB7pQrjL1_U__U SCORE=26.033642
+PATH= ./20_newsgroups/sci.electronics/0012830
+TEXT: In article <C60DvH.FAn@ucdavis.edu> ez019654@othel
 -----------------------------------------------------------------
-4 Documents
+ID= b2ETs4MB7pQrjL1_VQi6 SCORE=26.015587
+PATH= ./20_newsgroups/comp.graphics/0001994
+TEXT: I am applying for an NSF grant to buy equipment fo
+-----------------------------------------------------------------
+ID= hmETs4MB7pQrjL1_WyB4 SCORE=25.919498
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003694
+TEXT: This is the official Call For a Vote on the creati
+-----------------------------------------------------------------
+1099 Documents
+ID= PmETs4MB7pQrjL1_WyLI SCORE=45.137238
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003989
+TEXT: In-reply-to: johnn@eskimo.com's message of 21 Apr 
+-----------------------------------------------------------------
+ID= b2ETs4MB7pQrjL1_VQi6 SCORE=40.130867
+PATH= ./20_newsgroups/comp.graphics/0001994
+TEXT: I am applying for an NSF grant to buy equipment fo
+-----------------------------------------------------------------
+ID= b2ETs4MB7pQrjL1_XSoW SCORE=39.467365
+PATH= ./20_newsgroups/comp.os.ms-windows.misc/0002599
+TEXT: dabl2@nlm.nih.gov (Don A.B. Lindbergh) writes:
+>In
+-----------------------------------------------------------------
+ID= 02ETs4MB7pQrjL1_VAJp SCORE=39.157806
+PATH= ./20_newsgroups/sci.crypt/0011846
+TEXT: In article <C62D8r.C7p@demon.co.uk> Graham Toal <g
+-----------------------------------------------------------------
+ID= hmETs4MB7pQrjL1_WyB4 SCORE=38.87925
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003694
+TEXT: This is the official Call For a Vote on the creati
+-----------------------------------------------------------------
+982 Documents
+ID= PmETs4MB7pQrjL1_WyLI SCORE=59.723557
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003989
+TEXT: In-reply-to: johnn@eskimo.com's message of 21 Apr 
+-----------------------------------------------------------------
+ID= b2ETs4MB7pQrjL1_VQi6 SCORE=54.24614
+PATH= ./20_newsgroups/comp.graphics/0001994
+TEXT: I am applying for an NSF grant to buy equipment fo
+-----------------------------------------------------------------
+ID= b2ETs4MB7pQrjL1_XSoW SCORE=53.080395
+PATH= ./20_newsgroups/comp.os.ms-windows.misc/0002599
+TEXT: dabl2@nlm.nih.gov (Don A.B. Lindbergh) writes:
+>In
+-----------------------------------------------------------------
+ID= 02ETs4MB7pQrjL1_VAJp SCORE=52.988426
+PATH= ./20_newsgroups/sci.crypt/0011846
+TEXT: In article <C62D8r.C7p@demon.co.uk> Graham Toal <g
+-----------------------------------------------------------------
+ID= hmETs4MB7pQrjL1_WyB4 SCORE=51.838997
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003694
+TEXT: This is the official Call For a Vote on the creati
+-----------------------------------------------------------------
+971 Documents
+ID= PmETs4MB7pQrjL1_WyLI SCORE=74.30987
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003989
+TEXT: In-reply-to: johnn@eskimo.com's message of 21 Apr 
+-----------------------------------------------------------------
+ID= b2ETs4MB7pQrjL1_VQi6 SCORE=68.36142
+PATH= ./20_newsgroups/comp.graphics/0001994
+TEXT: I am applying for an NSF grant to buy equipment fo
+-----------------------------------------------------------------
+ID= 02ETs4MB7pQrjL1_VAJp SCORE=66.819046
+PATH= ./20_newsgroups/sci.crypt/0011846
+TEXT: In article <C62D8r.C7p@demon.co.uk> Graham Toal <g
+-----------------------------------------------------------------
+ID= b2ETs4MB7pQrjL1_XSoW SCORE=66.69342
+PATH= ./20_newsgroups/comp.os.ms-windows.misc/0002599
+TEXT: dabl2@nlm.nih.gov (Don A.B. Lindbergh) writes:
+>In
+-----------------------------------------------------------------
+ID= hmETs4MB7pQrjL1_WyB4 SCORE=64.798744
+PATH= ./20_newsgroups/comp.sys.ibm.pc.hardware/0003694
+TEXT: This is the official Call For a Vote on the creati
+-----------------------------------------------------------------
+971 Documents
+971 Documents
+['hardware^2.0', 'c^1.0', 'indicate^0.0', 'working^0.0', 'message^0.0', 'mjr^0.0']
+[15.964605, 14.876287, 14.670019, 14.492681, 14.422686, 30.550922, 26.083902, 26.033642, 26.015587, 25.919498, 45.137238, 40.130867, 39.467365, 39.157806, 38.87925, 59.723557, 54.24614, 53.080395, 52.988426, 51.838997, 74.30987, 68.36142, 66.819046, 66.69342, 64.798744]
