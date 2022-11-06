@@ -44,7 +44,7 @@ airportList = [] # list of Airport
 airportHash = dict() # hash key IATA code -> Airport
 PR = []
 
-L = 0.85    #damping factor
+L = 0.85
 tol = 10**(-12)
 
 def readAirports(fd):
@@ -96,19 +96,13 @@ def readRoutes(fd):
     print("There were {0} Edges with both IATA code".format(cont))
 
 def computePageRanks():
-
-    # number of vertices in G;
-    n = len(airportHash) 
-
-    # any vector of length n and sum 1 (for example, the all 1/n vector);
+    n = len(airportHash)
     P = [1/n]*n
-
     # Disconnected nodes PR calculation
-    discN = len(list(filter(lambda a: a.outweight == 0.0, airportList)))    # numero de nodos con outdegree = 0 (desconectados)
+    discN = len(list(filter(lambda a: a.outweight == 0.0, airportList)))
     disconnectedPRfixed = discN*(L/float(n-1))  # outweight = n-1, so L/(n-1), and this for all discN nodes
     disconnectPRvariable = 1/n  # All values in P at the first iteration are 1/n
-
-    
+    ######## ------------------------------------------------------------------------------------- ########
     stop = False
     it = 0
     while (not stop):
