@@ -25,10 +25,10 @@ class Airport:
         return "{0}\t{2}\t{1}".format(self.code, self.name, self.pageIndex)
 
     def addIncomingEdge(self, incomingAirport):
-        if not incomingAirport in self.routeHash:
+        if not incomingAirport in self.routeHash:       # si la arista no esta en su lista ruta, lo anadimos
             e = Edge(incomingAirport)
             self.routeHash[incomingAirport] = e
-        else:
+        else:                                           # si esta en lista ruta, incrementamos el peso
             e = self.routeHash[incomingAirport]
             e.weight += 1
 
@@ -147,6 +147,7 @@ def computePageRanks():
     return it
 
 def checkDifference(diff, P, Q):
+    
     for x, y in zip(P,Q):
         if (abs(x-y) > diff):
             return False
