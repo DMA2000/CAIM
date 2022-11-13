@@ -41,7 +41,7 @@ airportHash = dict() # hash key IATA code -> Airport
 PR = []
 
 L = 0.85
-tol = 10**(-10)
+diff = 10**(-10)     # diferencia aceptable entre P y Q
 
 def readAirports(fd):
     print("Reading Airport file from {0}".format(fd))
@@ -92,7 +92,7 @@ def readRoutes(fd):
     print("There were {0} Edges with both IATA code".format(cont))
 
 
-def conectarNodosDosEnDos(discAirp):
+def conectarNodosDosEnDos(discAirp):        # conecta una lista de nodos dos a dos
     i = 0;
     while(i < len(discAirp)):
         discAirp[i].addIncomingEdge(discAirp[i+1].code)
@@ -135,7 +135,7 @@ def computePageRanks():
             for k,v in a.routeHash.items():
                 sumPR += P[airportHash[k].index] * v.weight / airportHash[k].outweight
             Q[i] = L * sumPR + (1-L)/n 
-        stop = checkDifference(tol, P, Q)
+        stop = checkDifference(diff, P, Q)
         P = Q
 
         print("sum PR (iter", it, "):" , sum(i for i in P))    # Check that at each iteration, P sums 1
@@ -146,9 +146,9 @@ def computePageRanks():
 
     return it
 
-def checkDifference(tol, P, Q):
+def checkDifference(diff, P, Q):
     for x, y in zip(P,Q):
-        if (abs(x-y) > tol):
+        if (abs(x-y) > diff):
             return False
     return True
 
@@ -163,17 +163,14 @@ def outputPageRanks():
     L.sort(key = lambda x: x[1], reverse = True)
 
     s = ""
-    s += "################ (Airport Name : PageRank) ################\n"
+    s += " (Airport_Name, Location : PageRank) \n"
     for (x,y) in L:
         s += ("(%s : %s)\n"%(x, y))
 
-    writeToFile(s)
-
-
-def writeToFile(s):
     f = open("output.txt", "w")
     f.write(s)
     f.close()
+
 
 
 def main(argv=None):
@@ -183,7 +180,7 @@ def main(argv=None):
     iterations = computePageRanks()
     time2 = time.time()
     outputPageRanks()
-    print("#Iterations:", iterations, ", with", tol, "Tolerance between iterations")
+    print("# Iterations:", iterations, ", with", diff, "Difference between iterations")
     print("Time of computePageRanks():", time2-time1)
 
 
