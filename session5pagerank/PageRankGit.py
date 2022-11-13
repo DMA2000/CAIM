@@ -7,15 +7,11 @@ import sys
 class Edge:
     def __init__ (self, origin=None):
         self.origin = origin
-        self.weight = 1 # When we initialize this instance, obviously now it has 1 edge
+        self.weight = 1     # inicialmente con peso 1
 
     def __repr__(self):
         return "edge: {0} {1}".format(self.origin, self.weight)
 
-    def incWeight(self):
-        self.weight += 1
-
-    ## write rest of code that you need for this class
 
 class Airport:
     def __init__ (self, iden=None, name=None, index=None):
@@ -34,7 +30,7 @@ class Airport:
             self.routeHash[incomingAirport] = e
         else:
             e = self.routeHash[incomingAirport]
-            e.incWeight()
+            e.weight += 1
 
         airportHash[e.origin].outweight += 1
 
@@ -45,7 +41,7 @@ airportHash = dict() # hash key IATA code -> Airport
 PR = []
 
 L = 0.85
-tol = 10**(-12)
+tol = 10**(-10)
 
 def readAirports(fd):
     print("Reading Airport file from {0}".format(fd))
@@ -82,7 +78,7 @@ def readRoutes(fd):
             originCode = temp[2]
             destCode = temp[4]
             if destCode in airportHash and originCode in airportHash:
-                # for an edge (i.j), to compute pagerank we are only interested in which are the incoming edges for an airport
+                # add edge for destination airport
                 destAirport = airportHash[destCode]
                 destAirport.addIncomingEdge(originCode)
             else:
@@ -95,28 +91,53 @@ def readRoutes(fd):
     routesTxt.close()
     print("There were {0} Edges with both IATA code".format(cont))
 
+
+def conectarNodosDosEnDos(discAirp):
+    i = 0;
+    while(i < len(discAirp)):
+        discAirp[i].addIncomingEdge(discAirp[i+1].code)
+        discAirp[i+1].addIncomingEdge(discAirp[i].code)
+        i += 2
+
+
+
 def computePageRanks():
     n = len(airportHash)
     P = [1/n]*n
     # Disconnected nodes PR calculation
-    discN = len(list(filter(lambda a: a.outweight == 0.0, airportList)))
-    disconnectedPRfixed = discN*(L/float(n-1))  # outweight = n-1, so L/(n-1), and this for all discN nodes
-    disconnectPRvariable = 1/n  # All values in P at the first iteration are 1/n
-    ######## ------------------------------------------------------------------------------------- ########
+    discAirp = (list(filter(lambda a: a.outweight == 0.0, airportList)))
+    print(len(discAirp))
+
+
+    if len(discAirp)%2 == 0:
+        conectarNodosDosEnDos(discAirp)
+
+    else:
+
+
+        print(discAirp[0].index)
+        discAirp[0].addIncomingEdge(discAirp[1].code)
+        discAirp[1].addIncomingEdge(discAirp[2].code)
+        discAirp[2].addIncomingEdge(discAirp[1].code)
+        discAirp.remove(discAirp[0])
+        discAirp.remove(discAirp[1])
+        discAirp.remove(discAirp[2])
+        conectarNodosDosEnDos(discAirp)
+
+
     stop = False
     it = 0
     while (not stop):
         Q = [0.0]*n
         for i in range(n):
             a = airportList[i]
-            totalDiscPR = disconnectedPRfixed*disconnectPRvariable
             sumPR = 0
             for k,v in a.routeHash.items():
                 sumPR += P[airportHash[k].index] * v.weight / airportHash[k].outweight
-            Q[i] = L * sumPR + (1-L)/n + totalDiscPR
+            Q[i] = L * sumPR + (1-L)/n 
         stop = checkDifference(tol, P, Q)
         P = Q
-        disconnectPRvariable = (1-L)/n + totalDiscPR
+
         print("sum PR (iter", it, "):" , sum(i for i in P))    # Check that at each iteration, P sums 1
         it += 1
 
@@ -142,7 +163,7 @@ def outputPageRanks():
     L.sort(key = lambda x: x[1], reverse = True)
 
     s = ""
-    s += "################ (Airport Name : PR) ################\n"
+    s += "################ (Airport Name : PageRank) ################\n"
     for (x,y) in L:
         s += ("(%s : %s)\n"%(x, y))
 
