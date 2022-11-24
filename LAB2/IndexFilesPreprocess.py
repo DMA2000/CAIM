@@ -116,7 +116,7 @@ if __name__ == '__main__':
 
     # configure the path field so it is not tokenized and we can do exact match search
 
-    
+
     client.indices.put_mapping(
         index=index,
         

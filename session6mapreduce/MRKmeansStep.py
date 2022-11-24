@@ -10,7 +10,7 @@ MRKmeansDef
 
 :Authors: bejar
     
-
+    
 :Version: 
 
 :Created on: 17/07/2017 7:42 
@@ -35,7 +35,28 @@ class MRKmeansStep(MRJob):
 
         The result should be always a value in the range [0,1]
         """
-        return 1
+
+        # (norm_2)^2 = sum of squares
+        union = 0
+        for i in range(len(prot)):
+            union += prot[i][1]**2
+        union += len(doc)               # knowing that 1^2 = 1, norm_2(doc) = len(doc)
+
+        intersection = 0
+        i = 0
+        j = 0
+        while (i < len(prot) and j < len(doc)):
+            if (prot[i][0] < doc[j]):
+                i += 1
+            elif (prot[i][0] > doc[j]):
+                j += 1
+            else:
+                intersection += prot[i][1]
+                i += 1
+                j += 1
+        
+        return float(intersection)/float(union - intersection)
+
 
     def configure_args(self):
         """
@@ -45,6 +66,7 @@ class MRKmeansStep(MRJob):
         """
         super(MRKmeansStep, self).configure_args()
         self.add_file_arg('--prot')
+
 
     def load_data(self):
         """
@@ -71,16 +93,29 @@ class MRKmeansStep(MRJob):
         You can add also more elements to the value element, for example the document_id
         """
 
-        # Each line is a string docid:wor1 word2 ... wordn
+        # Each line is a string doc_id  :   wor1 word2 ... wordn
         doc, words = line.split(':')
-        lwords = words.split()
+        lwords = words.split()      # list of words in doc
 
-        #
+        
         # Compute map here
-        #
+        prototype_id = next(iter(self.prototypes))
+        minDist = 1-self.jaccard(self.prototypes[prototype_id], lwords) # distance is complement of jaccard similarity
 
+        f = open("./documents.txt", 'w')
+        
+        for k,v in self.prototypes.items():
+            dist = 1-self.jaccard(v, lwords)
+            f.write(str(dist))
+            if (dist < minDist):
+                minDist = dist
+                prototype_id = k
+
+        f.close()
         # Return pair key, value
-        yield None, None
+        yield prototype_id, (doc,lwords)
+
+
 
     def aggregate_prototype(self, key, values):
         """
@@ -100,7 +135,28 @@ class MRKmeansStep(MRJob):
         :return:
         """
 
-        yield None, None
+        myKey = key
+        nextPrototype = {}      #diccionario de palabra-fracuencia
+        nextPrototypeDocs = []
+        docsInCluster = 0
+        for doc in values:      # (direccion_docu, lista_palabras)
+            docsInCluster += 1
+            nextPrototypeDocs.append(doc[0])
+            for word in doc[1]:
+                if word in nextPrototype:       # si la palabra esta en nextPrototype
+                    nextPrototype[word] += 1       #incrementamos la frecuencia
+                else:
+                    nextPrototype[word] = 1     # si no esta lo inicializamos a 1
+        
+        returnPrototype = []
+        for word in nextPrototype:      #normalizar
+            returnPrototype.append((word,nextPrototype[word]/float(docsInCluster)))
+
+        docList = sorted(nextPrototypeDocs)
+        termList = sorted(returnPrototype, key=lambda x: x[0])
+    
+        yield myKey, (docList, termList)
+
 
     def steps(self):
         return [MRStep(mapper_init=self.load_data, mapper=self.assign_prototype,

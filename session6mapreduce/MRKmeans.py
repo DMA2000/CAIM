@@ -61,14 +61,49 @@ if __name__ == '__main__':
             # Process the results of the script iterating the (key,value) pairs
             for key, value in mr_job1.parse_output(runner1.cat_output()):
                 # You should store things here probably in a datastructure
+                new_assign[key] = value[0]
+                new_proto[key] = value[1]
+                
+            print(len(new_proto))
 
             # If your scripts returns the new assignments you could write them in a file here
+            nomove = (assign == new_assign)
+
+            assigStr = ""
+            for k,v in new_assign.items():
+                assigStr += k + ":"
+                for doc in v:
+                    assigStr += doc + " "
+                assigStr += "\n"
+
+            protoStr = ""
+            for k,v in new_proto.items():
+                protoStr += k + ":"
+                for term in v:
+                    protoStr += term[0] + "+" + str(term[1]) + " "
+                protoStr += "\n"
+
+
+            assigFileName = "/assignments%d.txt"%(i+1)
+            protoFileName = "/prototypes%d.txt"%(i+1)
+            if (i+1 == args.iter or nomove):
+                assigFileName = "/assignments-final.txt"
+                protoFileName = "/prototypes-final.txt"
+
+            outputAssign = open(cwd + assigFileName, 'w')
+            outputAssign.write(assigStr)
+            outputAssign.close()
+            outputProtos = open(cwd + protoFileName, 'w')
+            outputProtos.write(protoStr)
+            outputProtos.close()
 
             # You should store the new prototypes here for the next iteration
 
             # If you have saved the assignments, you can check if they have changed from the previous iteration
+            assign = new_assign
 
-        print(f"Time= {(time.time() - tinit)} seconds" % )
+        #print(f"Time= {(time.time() - tinit)} seconds" %)
+        print("Time= %f seconds" % (time.time() - tinit))
 
         if nomove:  # If there is no changes in two consecutive iteration we can stop
             print("Algorithm converged")
