@@ -36,13 +36,12 @@ class MRKmeansStep(MRJob):
         The result should be always a value in the range [0,1]
         """
 
-        # (norm_2)^2 = sum of squares
-        union = 0
+        sum = 0
         for i in range(len(prot)):
-            union += prot[i][1]**2
-        union += len(doc)               # knowing that 1^2 = 1, norm_2(doc) = len(doc)
+            sum += prot[i][1]**2  
+        sum += len(doc)                 #puesto que 1^2 = 1  
 
-        intersection = 0
+        prod = 0
         i = 0
         j = 0
         while (i < len(prot) and j < len(doc)):
@@ -51,11 +50,11 @@ class MRKmeansStep(MRJob):
             elif (prot[i][0] > doc[j]):
                 j += 1
             else:
-                intersection += prot[i][1]
+                prod += prot[i][1]
                 i += 1
                 j += 1
         
-        return float(intersection)/float(union - intersection)
+        return float(prod)/float(sum - prod)
 
 
     def configure_args(self):
@@ -95,25 +94,23 @@ class MRKmeansStep(MRJob):
 
         # Each line is a string doc_id  :   wor1 word2 ... wordn
         doc, words = line.split(':')
-        lwords = words.split()      # list of words in doc
-
-        
+        lwords = words.split()      # lista de palabras en words
+            
+        #
         # Compute map here
-        prototype_id = next(iter(self.prototypes))
-        minDist = 1-self.jaccard(self.prototypes[prototype_id], lwords) # distance is complement of jaccard similarity
+        #
+        assignedPrototype = next(iter(self.prototypes))                 
+        minDistance = 1-self.jaccard(self.prototypes[assignedPrototype], lwords)     # diatancia = (1-similitud)
 
-        f = open("./documents.txt", 'w')
-        
-        for k,v in self.prototypes.items():
-            dist = 1-self.jaccard(v, lwords)
-            f.write(str(dist))
-            if (dist < minDist):
-                minDist = dist
-                prototype_id = k
-
-        f.close()
+        for prot in self.prototypes:
+            auxDistance = 1-self.jaccard(self.prototypes[prot],lwords)
+            if(auxDistance < minDistance):
+                minDistance = auxDistance
+                assignedPrototype = prot
+            
         # Return pair key, value
-        yield prototype_id, (doc,lwords)
+        yield assignedPrototype, (doc,lwords)
+
 
 
 
@@ -135,27 +132,28 @@ class MRKmeansStep(MRJob):
         :return:
         """
 
-        myKey = key
-        nextPrototype = {}      #diccionario de palabra-fracuencia
-        nextPrototypeDocs = []
-        docsInCluster = 0
-        for doc in values:      # (direccion_docu, lista_palabras)
-            docsInCluster += 1
-            nextPrototypeDocs.append(doc[0])
-            for word in doc[1]:
-                if word in nextPrototype:       # si la palabra esta en nextPrototype
-                    nextPrototype[word] += 1       #incrementamos la frecuencia
-                else:
-                    nextPrototype[word] = 1     # si no esta lo inicializamos a 1
-        
-        returnPrototype = []
-        for word in nextPrototype:      #normalizar
-            returnPrototype.append((word,nextPrototype[word]/float(docsInCluster)))
 
-        docList = sorted(nextPrototypeDocs)
-        termList = sorted(returnPrototype, key=lambda x: x[0])
+        nextPrototype = dict()      #diccionario de palabra-fracuencia
+        nextDocList = []
+        docsNum = 0
+
+        for doc in values:      # (direccion_docu, lista_palabras)
+            docsNum += 1
+            nextDocList.append(doc[0])
+            for token in doc[1]:
+                if token in nextPrototype:       # si la palabra esta en nextPrototype
+                    nextPrototype[token] += 1       #incrementamos la frecuencia
+                else:
+                    nextPrototype[token] = 1     # si no esta lo inicializamos a 1
+        
+        rProt = []
+        for token in nextPrototype:      #normalizar
+            rProt.append((token,nextPrototype[token]/float(docsNum)))
+
+        sortedDocList = sorted(nextDocList)
+        sortedProt = sorted(rProt, key=lambda x: x[0])
     
-        yield myKey, (docList, termList)
+        yield key, (sortedDocList, sortedProt)
 
 
     def steps(self):

@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser.add_argument('--prot', default='prototypes.txt', help='Initial prototpes file')
     parser.add_argument('--docs', default='documents.txt', help='Documents data')
     parser.add_argument('--iter', default=5, type=int, help='Number of iterations')
-    parser.add_argument('--ncores', default=2, type=int, help='Number of parallel processes to use')
+    parser.add_argument('--ncores', default=8, type=int, help='Number of parallel processes to use')
 
     args = parser.parse_args()
     assign = {}
@@ -67,37 +67,36 @@ if __name__ == '__main__':
             print(len(new_proto))
 
             # If your scripts returns the new assignments you could write them in a file here
-            nomove = (assign == new_assign)
 
-            assigStr = ""
-            for k,v in new_assign.items():
-                assigStr += k + ":"
-                for doc in v:
-                    assigStr += doc + " "
-                assigStr += "\n"
+            assignments = ""
+            for key,value in new_assign.items():
+                assignments += key + ":"
+                for doc in value:
+                    assignments += doc + " "
+                assignments += "\n"
+            assigTxtName = "/assignments%d.txt"%(i+1)       #output assignments
+            assigFile = open(cwd + assigTxtName, 'w')
+            assigFile.write(assignments)
+            assigFile.close()
 
-            protoStr = ""
-            for k,v in new_proto.items():
-                protoStr += k + ":"
-                for term in v:
-                    protoStr += term[0] + "+" + str(term[1]) + " "
-                protoStr += "\n"
+            if new_assign==assign:      # comprobar si hemos covergido
+                nomove = True
 
-
-            assigFileName = "/assignments%d.txt"%(i+1)
-            protoFileName = "/prototypes%d.txt"%(i+1)
-            if (i+1 == args.iter or nomove):
-                assigFileName = "/assignments-final.txt"
-                protoFileName = "/prototypes-final.txt"
-
-            outputAssign = open(cwd + assigFileName, 'w')
-            outputAssign.write(assigStr)
-            outputAssign.close()
-            outputProtos = open(cwd + protoFileName, 'w')
-            outputProtos.write(protoStr)
-            outputProtos.close()
 
             # You should store the new prototypes here for the next iteration
+
+            prototype = ""
+            for key,value in new_proto.items():
+                prototype += key + ":"
+                for term in value:
+                    prototype += term[0] + "+" + str(term[1]) + " "
+                prototype += "\n"
+            prototypeTxtName = "/prototypes%d.txt"%(i+1)         #output prototypes
+            if (i+1 == args.iter or nomove):
+                prototypeTxtName = "/prototypes-final.txt"
+            prototypeFile = open(cwd + prototypeTxtName, 'w')
+            prototypeFile.write(prototype)
+            prototypeFile.close()
 
             # If you have saved the assignments, you can check if they have changed from the previous iteration
             assign = new_assign
